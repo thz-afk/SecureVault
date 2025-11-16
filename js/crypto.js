@@ -12,10 +12,34 @@ const Crypto = {
     TAG_LENGTH: 128,
     
     /**
+     * Verifica se Web Crypto está disponível
+     */
+    isSupported() {
+        return typeof crypto !== 'undefined' && 
+               crypto.subtle && 
+               typeof crypto.subtle.encrypt === 'function';
+    },
+    
+    /**
+     * Gera salt aleatório seguro
+     */
+    generateSalt() {
+        return crypto.getRandomValues(new Uint8Array(this.SALT_LENGTH));
+    },
+    
+    /**
      * Deriva chave da senha usando PBKDF2
      * A senha é imediatamente descartada após derivação
      */
     async deriveKey(password, salt) {
+        // Validações de entrada
+        if (!password || typeof password !== 'string') {
+            throw new Error('Password inválida');
+        }
+        if (!salt || salt.length < this.SALT_LENGTH) {
+            throw new Error('Salt inválido');
+        }
+        
         const enc = new TextEncoder();
         const passwordBuffer = enc.encode(password);
         
@@ -42,8 +66,12 @@ const Crypto = {
             ['encrypt', 'decrypt']
         );
         
-        // Limpa buffer da senha
-        Security.zeroize(passwordBuffer);
+        // Limpa buffer da senha - CORRIGIDO
+        if (typeof Security !== 'undefined' && Security.zeroize) {
+            Security.zeroize(passwordBuffer);
+        } else {
+            passwordBuffer.fill(0);
+        }
         
         return key;
     },
@@ -59,8 +87,13 @@ const Crypto = {
         // IV aleatório único
         const iv = crypto.getRandomValues(new Uint8Array(this.IV_LENGTH));
         
-        // Additional Authenticated Data - estrutura do vault
-        const aad = enc.encode('VAULT_V1_' + Date.now());
+        // Additional Authenticated Data - MELHORADO
+        const aadData = {
+            version: 'VAULT_V1',
+            timestamp: Date.now(),
+            context: 'encryption'
+        };
+        const aad = enc.encode(JSON.stringify(aadData));
         
         // Criptografa
         const ciphertext = await crypto.subtle.encrypt(
@@ -115,4 +148,3 @@ const Crypto = {
         }
     }
 };
-
