@@ -106,4 +106,4 @@ Embora utilizemos bibliotecas de criptografia padrão da indústria (`kdbxweb`),
 
 ---
 
-[Reportar Bug](https://github.com/seu-usuario/securevault/issues) • [Licença MIT](LICENSE)
+[Reportar Bug](https://github.com/thz-afk/securevault/issues) • [Licença MIT](LICENSE)
