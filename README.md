@@ -101,7 +101,7 @@ O `index.html` possui uma CSP rigorosa para evitarXSS e conexões externas não 
 **Use por sua conta e risco.**
 Embora utilizemos bibliotecas de criptografia padrão da indústria (`kdbxweb`), a segurança final depende do ambiente onde o código é executado.
 
-1. Não use em computadores públicos/infectados![Screenshot_20251116_225306_Chrome](https://github.com/user-attachments/assets/b68ac372-0cf2-410b-8570-a084710254da)
+1. Não use em computadores públicos/infectados
 3. **Nós não podemos recuperar sua senha mestre**
 
 ---
