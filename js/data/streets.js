@@ -1,9 +1,10 @@
 'use strict';
 
 /**
- * Lista de ruas e avenidas
+ * Lista de ruas e avenidas (Expandida)
  */
 const StreetsData = [
+    // Originais
     'Rua das Flores', 
     'Av. Brasil', 
     'Rua Principal',
@@ -38,6 +39,90 @@ const StreetsData = [
     'Rua Cândido Portinari',
     'Av. Engenheiro Luís Carlos Berrini',
     'Rua Oscar Freire',
-    'Av. Brigadeiro Faria Lima'
-];
+    'Av. Brigadeiro Faria Lima',
 
+    // Datas e Figuras Históricas
+    'Rua 7 de Setembro',
+    'Av. Tiradentes',
+    'Rua Duque de Caxias',
+    'Rua Castro Alves',
+    'Av. Princesa Isabel',
+    'Rua Rui Barbosa',
+    'Rua José Bonifácio',
+    'Av. Marechal Deodoro',
+    'Rua 13 de Maio',
+    'Av. Ipiranga',
+    'Rua 24 de Maio',
+    'Rua Gonçalves Dias',
+    'Av. Juscelino Kubitschek',
+    'Rua Machado de Assis',
+    'Rua Olavo Bilac',
+    'Av. Castelo Branco',
+    'Rua Benjamin Constant',
+    'Rua Visconde de Pirajá',
+    'Av. Borges de Medeiros',
+    'Rua Almirante Barroso',
+
+    // Natureza (Árvores e Flores)
+    'Rua das Acácias',
+    'Av. dos Ipês',
+    'Rua dos Pinheiros',
+    'Rua das Laranjeiras',
+    'Rua dos Jasmins',
+    'Av. das Figueiras',
+    'Rua das Orquídeas',
+    'Rua dos Lírios',
+    'Rua das Magnólias',
+    'Rua das Hortênsias',
+    'Av. dos Eucaliptos',
+    'Rua do Cedro',
+    'Rua da Cerejeira',
+    'Rua dos Girassóis',
+    'Rua das Rosas',
+
+    // Nomes Abstratos e Lugares
+    'Rua da Esperança',
+    'Av. da Saudade',
+    'Rua da Harmonia',
+    'Rua da Vitória',
+    'Av. do Contorno',
+    'Rua do Horizonte',
+    'Rua da Aurora',
+    'Av. da Amizade',
+    'Rua Bela Vista',
+    'Rua Nova',
+    'Rua Imperial',
+    'Av. Central',
+    'Rua do Porto',
+    'Rua da Serra',
+    'Av. Litorânea',
+
+    // Estados e Países
+    'Rua Amazonas',
+    'Av. Paraná',
+    'Rua Minas Gerais',
+    'Rua Bahia',
+    'Av. São Paulo',
+    'Rua Rio de Janeiro',
+    'Rua Santa Catarina',
+    'Av. Europa',
+    'Rua Estados Unidos',
+    'Rua Portugal',
+    'Av. Itália',
+    'Rua Espanha',
+    'Rua Argentina',
+    'Rua Uruguai',
+    'Av. Nações Unidas',
+
+    // Santos e Religiosos
+    'Rua São José',
+    'Av. Santo Antônio',
+    'Rua São Pedro',
+    'Rua São Paulo',
+    'Av. São Francisco',
+    'Rua Santa Clara',
+    'Rua Santa Rita',
+    'Rua Bom Jesus',
+    'Av. Nossa Senhora de Fátima',
+    'Rua Padre Cícero'
+];
