@@ -126,3 +126,4 @@ const StreetsData = [
     'Av. Nossa Senhora de Fátima',
     'Rua Padre Cícero'
 ];
+window.StreetsData = StreetsData;
