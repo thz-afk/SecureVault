@@ -2,26 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<!-- Dependência do KeePass (como no seu original) -->
 <script src="https://unpkg.com/kdbxweb@2.1.1/dist/kdbxweb.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- CSP (como no seu original) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; media-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; media-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none';">
 <title>SecureVault</title>
-<!-- O CSS é carregado aqui -->
 <link rel="stylesheet" href="styles/main.css">
-<style>
-  /* Estilo adicional para os ícones SVG se alinharem corretamente */
-  .menu-icon svg, .btn-icon svg {
-    width: 1em;
-    height: 1em;
-    font-size: 18px; /* Ajuste o tamanho conforme necessário */
-  }
-  .btn-icon svg {
-    font-size: 16px;
-  }
-</style>
 </head>
 <body>
 
@@ -47,7 +33,6 @@
             </div>
             <button type="submit" class="btn btn-primary" id="authBtn" style="width:100%">
                 <span id="authBtnTxt">Entrar</span>
-                <!-- Você pode adicionar um spinner aqui para feedback de carregamento -->
             </button>
         </form>
     </div>
@@ -62,13 +47,7 @@
                 <span id="timerDisplay" style="font-size:14px;color:var(--txt-sec)">--:--</span>
                 <button class="btn btn-small" id="extendSessionBtn" title="Prolongar sessão em 30 minutos">+30min</button>
             </div>
-            <!-- Botão de Configurações corrigido: agora é um btn-icon real com SVG -->
-            <button class="btn-icon" id="configBtn" title="Configurações" aria-label="Abrir Configurações" data-modal-open="configModal">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527c.43-.306.986-.228 1.33.103l.79 1.37a1.5 1.5 0 0 1-.22 1.903l-.715.536c-.33.247-.508.638-.508 1.054v.962c0 .416.178.807.508 1.054l.715.536a1.5 1.5 0 0 1 .22 1.903l-.79 1.37c-.344.33-.899.41-1.33.103l-.737-.527c-.35-.25-.807-.272-1.205-.108-.396.166-.71.506-.78.93l-.149.894c-.09.542-.56.94-1.11.94h-1.093c-.55 0-1.02-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.855-.142-1.205.108l-.737.527c-.43.306-.986.228-1.33-.103l-.79-1.37a1.5 1.5 0 0 1 .22-1.903l.715-.536c.33-.247.508-.638.508-1.054v-.962c0-.416-.178-.807-.508-1.054l-.715-.536a1.5 1.5 0 0 1-.22-1.903l.79-1.37c.344-.33.899-.41 1.33-.103l.737.527c.35.25.807.272 1.205.108.396-.166.71-.506.78-.93l.149-.894Z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-            </button>
+            <button class="btn-icon" id="configBtn" title="Configurações">Configurações</button>
             <button class="btn btn-danger" id="logoutBtn">Sair</button>
         </div>
     </header>
@@ -76,54 +55,27 @@
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <!-- Itens de menu agora são links em um <nav> -->
-            <nav>
-                <a href="#" class="menu-item active" data-section="passwords">
-                    <span class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
-                        </svg>
-                    </span> Senhas
-                </a>
-                <a href="#" class="menu-item" data-section="generator">
-                    <span class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 11.667 0l3.181-3.183m-4.994 0-3.181-3.183a8.25 8.25 0 0 0-11.667 0l3.181 3.183" />
-                        </svg>
-                    </span> Gerador
-                </a>
-                <a href="#" class="menu-item" data-section="persons">
-                    <span class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                    </span> Pessoas
-                </a>
-                <a href="#" class="menu-item" data-section="notes">
-                    <span class="menu-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                        </svg>
-                    </span> Salvar Coisas
-                </a>
-            </nav>
+            <div class="menu-item active" data-section="passwords">
+                <span class="menu-icon">▶</span> Senhas
+            </div>
+            <div class="menu-item" data-section="generator">
+                <span class="menu-icon">▶</span> Gerador
+            </div>
+            <div class="menu-item" data-section="persons">
+                <span class="menu-icon">▶</span> Pessoas
+            </div>
+            <div class="menu-item" data-section="notes">
+                <span class="menu-icon">▶</span> Salvar Coisas
+            </div>
 
             <hr style="border:0; border-top:1px solid var(--border); margin: 10px 0;">
 
             <div class="blk-list">
                 <div class="blk-list-header">
-                    <!-- Estilo inline removido, pois o CSS já cuida disso -->
-                    <span>Blocos</span>
-                    <!-- Botão de adicionar bloco corrigido: btn-icon com SVG -->
-                    <button class="btn-icon" id="addBlkBtn" title="Adicionar Bloco" aria-label="Adicionar Bloco" data-modal-open="blkModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                    </button>
+                    <span style="font-size:14px;color:var(--txt-sec)">Blocos</span>
+                    <button class="btn-icon" id="addBlkBtn">+</button>
                 </div>
-                <div id="blkList">
-                    <!-- Lista de blocos será preenchida por JS -->
-                </div>
+                <div id="blkList"></div>
             </div>
         </aside>
 
@@ -134,28 +86,16 @@
                 <div class="section-header">
                     <h2 class="section-title">Senhas</h2>
                     <div style="display:flex; gap:10px;">
-                        <!-- Botão modificado: adicionado data-modal-open -->
-                        <button class="btn btn-secondary" id="openDbModalBtn" data-modal-open="dbModal">
+                        <!-- Botão modificado: Sem emoji e com ID para o script -->
+                        <button class="btn btn-secondary" id="openDbModalBtn">
                             Backup e Dados
                         </button>
-                        <button class="btn btn-primary" id="addPwdBtn" data-modal-open="pwdModal">
+                        <button class="btn btn-primary" id="addPwdBtn">
                             + Nova Senha
                         </button>
                     </div>
                 </div>
-                <div id="pwdList">
-                    <!-- Lista de senhas será preenchida por JS -->
-                    <!-- Exemplo de estado vazio (para ser mostrado/ocultado por JS) -->
-                    <div class="empty-state" id="emptyPasswords" style="display:none;">
-                        <div class="empty-state-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
-                            </svg>
-                        </div>
-                        <div class="empty-state-title">Nenhuma Senha Encontrada</div>
-                        <div class="empty-state-description">Parece que você ainda não adicionou nenhuma senha.</div>
-                    </div>
-                </div>
+                <div id="pwdList"></div>
             </section>
 
             <!-- Generator Section -->
@@ -213,7 +153,7 @@
             <section class="section" id="notes">
                 <div class="section-header">
                     <h2 class="section-title">Salvar Coisas</h2>
-                    <button class="btn btn-primary" id="addNoteBtn" data-modal-open="noteModal">+ Nova Anotação</button>
+                    <button class="btn btn-primary" id="addNoteBtn">+ Nova Anotação</button>
                 </div>
                 <div id="notesList"></div>
             </section>
@@ -222,14 +162,12 @@
 </div>
 
 <!-- Modals -->
-<!-- Botão de fechar padronizado e com type="button" -->
-
 <!-- Auth Modal for Re-authentication -->
 <div class="modal" id="authModal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Autenticação Necessária</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="authModal">✕</button>
         </div>
         <p style="margin-bottom:16px;color:var(--txt-sec)">Digite sua senha mestre para acessar as senhas</p>
         <form id="reauthForm">
@@ -247,7 +185,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Novo Bloco</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="blkModal">✕</button>
         </div>
         <form id="blkForm">
             <div class="form-group">
@@ -264,7 +202,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Nova Senha</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="pwdModal">✕</button>
         </div>
         <form id="pwdForm">
             <div class="form-group">
@@ -296,7 +234,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Nova Anotação</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="noteModal">✕</button>
         </div>
         <form id="noteForm">
             <div class="form-group">
@@ -321,7 +259,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3 class="modal-title">Configurações</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="configModal">✕</button>
         </div>
         <div class="config-section">
             <div class="config-title">Serviço de Email Temporário</div>
@@ -340,12 +278,12 @@
     </div>
 </div>
 
-<!-- DB Modal (Backup & Restore) -->
+<!-- DB Modal (Backup & Restore) - Sem emojis -->
 <div class="modal" id="dbModal">
     <div class="modal-content" style="max-width: 600px;">
         <div class="modal-header">
             <h3 class="modal-title">Gerenciar Banco de Dados</h3>
-            <button type="button" class="btn-icon modal-close" aria-label="Fechar modal">✕</button>
+            <button class="btn-icon modal-close" data-modal="dbModal">✕</button>
         </div>
 
         <!-- Export Section -->
@@ -419,80 +357,55 @@
 <script src="js/app.js"></script>
 <script src="js/main.js"></script>
 
-<!-- Script de controle da UI (Modais, etc.) -->
 <script>
+    // Ensures this code runs after the page has loaded
     document.addEventListener('DOMContentLoaded', function() {
-        
-        // --- Lógica de Abertura de Modal ---
-        const openModalButtons = document.querySelectorAll('[data-modal-open]');
-        openModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const modalId = button.getAttribute('data-modal-open');
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.classList.add('active');
-                    modal.style.display = 'flex';
-                }
-            });
-        });
-
-        // --- Lógica de Fechamento de Modal (Botão X e Backdrop) ---
-        const allModals = document.querySelectorAll('.modal');
-        allModals.forEach(modal => {
-            // Fechar pelo botão .modal-close
-            const closeBtn = modal.querySelector('.modal-close');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    modal.classList.remove('active');
-                    modal.style.display = 'none';
-                });
-            }
-
-            // Fechar pelo clique no backdrop (fora do .modal-content)
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                    modal.style.display = 'none';
-                }
-            });
-        });
-        
-        // --- Lógica específica do Modal de DB (que você já tinha) ---
+        const dbBtn = document.getElementById('openDbModalBtn');
+        const dbModal = document.getElementById('dbModal');
         const exportFormat = document.getElementById('exportFormat');
         const exportPwdGroup = document.getElementById('exportPwdGroup');
 
-        if (exportFormat && exportPwdGroup) {
+        // Function to open the modal
+        if(dbBtn && dbModal) {
+            dbBtn.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevents default behavior
+                dbModal.classList.add('active'); // Adds class that displays the modal
+
+                // In case the CSS uses only display none/flex without classes:
+                dbModal.style.display = 'flex';
+            });
+        }
+
+        // Function to close the modal (X)
+        if (dbModal) {
+            const closeBtn = dbModal.querySelector('.modal-close');
+            if(closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    dbModal.classList.remove('active');
+                    dbModal.style.display = 'none';
+                });
+            }
+
+            // Close by clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === dbModal) {
+                    dbModal.classList.remove('active');
+                    dbModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Logic to hide/show password field on export
+        if(exportFormat && exportPwdGroup) {
             exportFormat.addEventListener('change', function(e) {
                 const val = e.target.value;
-                if (val === 'csv' || val === 'json') {
+                if(val === 'csv' || val === 'json') {
                     exportPwdGroup.style.display = 'none';
                 } else {
                     exportPwdGroup.style.display = 'block';
                 }
             });
-            // Aciona o evento uma vez para definir o estado inicial
-            exportFormat.dispatchEvent(new Event('change'));
         }
-
-        const importFile = document.getElementById('importFile');
-        const importPwdGroup = document.getElementById('importPwdGroup');
-
-        if (importFile && importPwdGroup) {
-            importFile.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const extension = file.name.split('.').pop().toLowerCase();
-                    if (extension === 'kdbx' || extension === 'json_enc') {
-                         importPwdGroup.style.display = 'block';
-                    } else {
-                         importPwdGroup.style.display = 'none';
-                    }
-                } else {
-                    importPwdGroup.style.display = 'none';
-                }
-            });
-        }
-
     });
 </script>
 
